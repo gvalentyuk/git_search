@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {Switch, Route, BrowserRouter} from 'react-router-dom'
+import SignUp from "./components/UI/Pages/SignUpForm/SignUp";
+import Layout from "./hoc/Layout/Layout";
+import Login from "./components/UI/Pages/LoginForm/Login";
+import {AlertState} from "./context/Alert/AlertState";
+import MainPaige from "./components/UI/Pages/MainPaige/MainPaige";
+import GitHubState from "./context/GitHub/GitHubState";
+import Profile from "./components/UI/Pages/Profile/Profile";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+
+    return (
+        <GitHubState>
+            <AlertState>
+                <BrowserRouter>
+                    <Layout>
+                        <Switch>
+                            <Route path='/' exact component={MainPaige}/>
+                            <Route path='/login' component={Login}/>
+                            <Route path='/signup' component={SignUp}/>
+                            <Route path='/profile/:name' component={Profile} />
+                        </Switch>
+                    </Layout>
+                </BrowserRouter>
+            </AlertState>
+        </GitHubState>
+    )
 }
 
 export default App;
